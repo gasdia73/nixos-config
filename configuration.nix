@@ -204,6 +204,8 @@ in config.boot.kernelPackages.nvidiaPackages.mkDriver {
      (blender.override { cudaSupport = true; })
      gimp
      inkscape
+     rsync
+     guvcview
   ];
   virtualisation.docker = {
     enable = true;
