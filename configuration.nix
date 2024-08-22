@@ -13,6 +13,7 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.supportedFilesystems = [ "ntfs" ];
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -63,6 +64,9 @@
     layout = "it";
     xkbVariant = "";
   };
+
+  hardware.logitech.wireless.enable = true;
+  hardware.logitech.wireless.enableGraphical = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -206,6 +210,7 @@ in config.boot.kernelPackages.nvidiaPackages.mkDriver {
      inkscape
      rsync
      guvcview
+     ntfs3g
   ];
   virtualisation.docker = {
     enable = true;
