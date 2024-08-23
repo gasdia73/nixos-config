@@ -26,12 +26,12 @@
   networking.networkmanager.enable = true;
 
   # Bluetooth
-  hardware = {
-      bluetooth = {
-          enable = true;
-          settings.General.Experimental = true;
-      };
-  };
+ # hardware = {
+ #     bluetooth = {
+ #         enable = true;
+ #         settings.General.Experimental = true;
+ #     };
+ # };
 
   # Set your time zone.
   time.timeZone = "Europe/Rome";
@@ -86,7 +86,7 @@
     # Enable this if you have graphical corruption issues or application crashes after waking
     # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead 
     # of just the bare essentials.
-    hardware.nvidia.powerManagement.enable = true;
+    hardware.nvidia.powerManagement.enable = false;
 # Fine-grained power management. Turns off GPU when not in use.
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
     hardware.nvidia.powerManagement.finegrained = false;
