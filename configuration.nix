@@ -65,8 +65,8 @@
     xkbVariant = "";
   };
 
-  hardware.logitech.wireless.enable = true;
-  hardware.logitech.wireless.enableGraphical = true;
+  #hardware.logitech.wireless.enable = true;
+  #hardware.logitech.wireless.enableGraphical = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -113,6 +113,13 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.printing.drivers = [ pkgs.hplipWithPlugin ];
+
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
 
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
