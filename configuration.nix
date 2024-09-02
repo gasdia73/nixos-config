@@ -65,8 +65,8 @@
     xkbVariant = "";
   };
 
-  #hardware.logitech.wireless.enable = true;
-  #hardware.logitech.wireless.enableGraphical = true;
+  hardware.logitech.wireless.enable = true;
+  hardware.logitech.wireless.enableGraphical = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -203,6 +203,8 @@
      guvcview
      ntfs3g
      googleearth-pro
+     logiops
+
   ];
 
   nixpkgs.config.permittedInsecurePackages = [
