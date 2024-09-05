@@ -24,6 +24,7 @@
     };
   };
 
+  fonts.fontconfig.enable = true;
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
@@ -32,11 +33,13 @@
     # pkgs.hello
     pkgs.kcalc
     pkgs.dbeaver-bin
+    pkgs.starship
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
     # # fonts?
     # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+    (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
 
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
@@ -89,17 +92,30 @@
       ".." = "cd ..";
     };
     historyControl = ["ignoredups"];
+    bashrcExtra = ''
+      eval "$(starship init bash)"
+    '';   
+  };
+
+  programs.starship = {
+    enable = true;
+    settings = pkgs.lib.importTOML ./starship/starship.toml;
+  };
+
+  xsession = {
+    enable = true;
+    numlock.enable = true;
     initExtra = ''
-      xinput --set-prop 14 "libinput Accel Profile Enabled" 1 0 \n
-      xinput --set-prop 14 "libinput Accel Speed" 0.9 \n
-      xinput --set-prop 14 'Coordinate Transformation Matrix' 0.1 0 0 0 0.1 0 0 0 0.1 \n
-      xinput --set-prop 12 "libinput Accel Profile Enabled" 1 0 \n
-      xinput --set-prop 12 "libinput Accel Speed" 0.9 \n
-      xinput --set-prop 12 'Coordinate Transformation Matrix' 0.1 0 0 0 0.1 0 0 0 0.1     \n  
-      xinput --set-prop 11 "libinput Accel Profile Enabled" 1 0 \n
-      xinput --set-prop 11 "libinput Accel Speed" 0.9 \n
-      xinput --set-prop 11 'Coordinate Transformation Matrix' 0.1 0 0 0 0.1 0 0 0 0.1        \n    
-    '';      
+      xinput --set-prop 14 "libinput Accel Profile Enabled" 1 0 
+      xinput --set-prop 14 "libinput Accel Speed" 0.9 
+      xinput --set-prop 14 'Coordinate Transformation Matrix' 0.1 0 0 0 0.1 0 0 0 0.1 
+      xinput --set-prop 12 "libinput Accel Profile Enabled" 1 0 
+      xinput --set-prop 12 "libinput Accel Speed" 0.9 
+      xinput --set-prop 12 'Coordinate Transformation Matrix' 0.1 0 0 0 0.1 0 0 0 0.1    
+      xinput --set-prop 11 "libinput Accel Profile Enabled" 1 0 
+      xinput --set-prop 11 "libinput Accel Speed" 0.9 
+      xinput --set-prop 11 'Coordinate Transformation Matrix' 0.1 0 0 0 0.1 0 0 0 0.1      
+    '';   
   };
 
   # Let Home Manager install and manage itself.
