@@ -204,7 +204,11 @@
      ntfs3g
      googleearth-pro
      logiops
-
+     lsof
+     usbutils
+     speechd
+     direnv
+     nix-direnv
   ];
 
   nixpkgs.config.permittedInsecurePackages = [
