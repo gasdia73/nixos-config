@@ -15,6 +15,11 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "ntfs" ];
 
+  fileSystems."/mnt/backup" =
+    { device = "/dev/disk/by-uuid/907294bd-7e64-424a-b335-41b5e58df1db";
+      fsType = "ext4";
+    };
+
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 

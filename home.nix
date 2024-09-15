@@ -47,6 +47,7 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
+    pkgs.xorg.xev
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -90,16 +91,19 @@
     shellAliases = {
       dir = "ls -al --color=auto";
       ".." = "cd ..";
+      dc = "docker compose";
     };
     historyControl = ["ignoredups"];
     bashrcExtra = ''
       eval "$(starship init bash)"
+      eval "$(direnv hook bash)"
     '';   
   };
 
   programs.starship = {
     enable = true;
-    settings = pkgs.lib.importTOML ./starship/starship.toml;
+    # settings = pkgs.lib.importTOML ./starship/starship.toml;
+    settings = pkgs.lib.importTOML ./starship/pastel.toml;
   };
 
   xsession = {
