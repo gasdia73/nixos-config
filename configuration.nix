@@ -38,6 +38,15 @@
  #     };
  # };
 
+  services.solaar = {
+    enable = true; # Enable the service
+    package = pkgs.solaar; # The package to use
+    window = "hide"; # Show the window on startup (show, *hide*, only [window only])
+    batteryIcons = "regular"; # Which battery icons to use (*regular*, symbolic, solaar)
+    extraArgs = ""; # Extra arguments to pass to solaar on startup
+  };
+
+
   # Set your time zone.
   time.timeZone = "Europe/Rome";
 
@@ -198,7 +207,7 @@
      gparted
      mongodb-compass
      soapui
-     insomnia
+     #insomnia
      vlc
      #postgresql
      (blender.override { cudaSupport = true; })
@@ -214,6 +223,9 @@
      speechd
      direnv
      nix-direnv
+     nix-index
+     appimage-run
+     restic
   ];
 
   nixpkgs.config.permittedInsecurePackages = [

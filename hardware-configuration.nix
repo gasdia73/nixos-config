@@ -29,8 +29,6 @@
       fsType = "ext4";
     };
 
-    907294bd-7e64-424a-b335-41b5e58df1db 
-
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
