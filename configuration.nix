@@ -38,14 +38,28 @@
  #     };
  # };
 
-  services.solaar = {
-    enable = true; # Enable the service
-    package = pkgs.solaar; # The package to use
-    window = "hide"; # Show the window on startup (show, *hide*, only [window only])
-    batteryIcons = "regular"; # Which battery icons to use (*regular*, symbolic, solaar)
-    extraArgs = ""; # Extra arguments to pass to solaar on startup
+  services.restic.backups = {
+    localbackup = {
+      initialize = true;
+      passwordFile = "/home/gasdia73/Documents/.restic";
+      paths = [
+          "/etc/group"
+          "/etc/machine-id"
+          "/etc/NetworkManager/system-connections"
+          "/etc/passwd"
+          "/etc/subgid"
+          "/home"
+          "/root"
+          "/var/lib"
+      ];
+      repository = "/mnt/backup/restic-repo";
+      timerConfig = {
+        OnCalendar = "13:00";
+      };  
+    };
   };
 
+  services.ratbagd.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Rome";
@@ -75,8 +89,8 @@
 
   # Configure keymap in X11
   services.xserver = {
-    layout = "it";
-    xkbVariant = "";
+    xkb.layout = "it";
+    xkb.variant = "";
   };
 
   hardware.logitech.wireless.enable = true;
@@ -226,6 +240,7 @@
      nix-index
      appimage-run
      restic
+     piper
   ];
 
   nixpkgs.config.permittedInsecurePackages = [
@@ -244,7 +259,7 @@
 
   services.postgresql = {
     enable = true;
-    port = 5434;
+    settings.port = 5434;
     enableTCPIP = true;
     authentication = pkgs.lib.mkOverride 10 ''
       #type database  DBuser  auth-method
