@@ -228,7 +228,7 @@
      #insomnia
      vlc
      #postgresql
-     (blender.override { cudaSupport = true; })
+    #  (blender.override { cudaSupport = true; })
      gimp
      inkscape
      rsync
@@ -249,6 +249,7 @@
 
   nixpkgs.config.permittedInsecurePackages = [
     "googleearth-pro-7.3.4.8248"
+    "googleearth-pro-7.3.6.9796"
   ];
 
 
