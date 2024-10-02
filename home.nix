@@ -98,6 +98,7 @@
       eval "$(starship init bash)"
       eval "$(direnv hook bash)"
       export JAVA_HOME=$(readlink -e $(type -p javac) | sed  -e 's/\/bin\/javac//g')
+      export LD_LIBRARY_PATH=$(nix build --print-out-paths --no-link nixpkgs#libGL)/lib
     '';   
   };
 
