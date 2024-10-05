@@ -32,7 +32,7 @@
     # # "Hello, world!" when run.
     # pkgs.hello
     pkgs.kcalc
-    pkgs.dbeaver-bin
+    # pkgs.dbeaver-bin
     pkgs.starship
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -84,6 +84,7 @@
   home.sessionVariables = {
     # EDITOR = "emacs";
     GDK_CORE_DEVICE_EVENTS=1;
+    NIXOS_OZONE_WL = "1";
   };
 
   programs.bash = {
