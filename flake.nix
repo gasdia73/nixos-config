@@ -6,9 +6,10 @@
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     stylix.url = "github:danth/stylix";
+    blender-bin.url = "github:edolstra/nix-warez?dir=blender";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: 
+  outputs = { self, nixpkgs, home-manager, blender-bin, ... }@inputs: 
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -21,6 +22,11 @@
           # so the old configuration file still takes effect
           ./configuration.nix
           inputs.stylix.nixosModules.stylix
+          ({config, pkgs, ...}: {
+            nixpkgs.overlays = [ blender-bin.overlays.default ];
+            # This line can either be here or in configuration.nix
+            environment.systemPackages = with pkgs; [ blender_4_2 ];
+          })
         ];
       };
       homeConfigurations = {

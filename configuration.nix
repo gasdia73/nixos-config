@@ -249,6 +249,7 @@
      appimage-run
      restic
      piper
+     libinput
   ];
 
   nixpkgs.config.permittedInsecurePackages = [
