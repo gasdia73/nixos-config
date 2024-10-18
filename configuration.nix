@@ -20,6 +20,12 @@
       fsType = "ext4";
     };
 
+  fileSystems."/mnt/extrastorage" =
+    { device = "/dev/disk/by-uuid/bd4121cc-e6d5-4b80-bcda-743c6e7399df";
+      fsType = "ext4";
+    };    
+
+
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -199,6 +205,10 @@
   # Enable the Flakes feature and the accompanying new nix command-line tool
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  nix.optimise.automatic = true;
+  nix.optimise.dates = [ "14:00" ]; # Optional; allows customizing optimisation schedule
+
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -208,9 +218,11 @@
      #openjdk16-bootstrap     
      jdk17
      sbt
+     scala
+     bloop
      metals
      vscode-extensions.scalameta.metals
-     coursier
+     #coursier
      maven
      gitFull
      wget
@@ -230,7 +242,7 @@
      mongodb-compass
      soapui
      #insomnia
-     vlc
+     #vlc
      #postgresql
     #  (blender.override { cudaSupport = true; })
      gimp
@@ -250,7 +262,25 @@
      restic
      piper
      libinput
+#     blender
+#     redisinsight
+      ffmpeg
+          gst_all_1.gstreamer
+          # Common plugins like "filesrc" to combine within e.g. gst-launch
+          gst_all_1.gst-plugins-base
+          # Specialized plugins separated by quality
+          gst_all_1.gst-plugins-good
+          gst_all_1.gst-plugins-bad
+          gst_all_1.gst-plugins-ugly
+          # Plugins to reuse ffmpeg to play almost every video format
+          gst_all_1.gst-libav
+          # Support the Video Audio (Hardware) Acceleration API
+          gst_all_1.gst-vaapi
   ];
+
+#  nixpkgs.config.cudaSupport = true;
+
+  services.flatpak.enable = true;
 
   nixpkgs.config.permittedInsecurePackages = [
     "googleearth-pro-7.3.4.8248"
