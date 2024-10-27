@@ -208,7 +208,6 @@
   nix.optimise.automatic = true;
   nix.optimise.dates = [ "14:00" ]; # Optional; allows customizing optimisation schedule
 
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -239,6 +238,7 @@
      pgadmin4
      nodejs_22
      gparted
+     mlocate
      mongodb-compass
      soapui
      #insomnia
@@ -276,6 +276,8 @@
           gst_all_1.gst-libav
           # Support the Video Audio (Hardware) Acceleration API
           gst_all_1.gst-vaapi
+      nixd
+      lm_sensors
   ];
 
 #  nixpkgs.config.cudaSupport = true;

@@ -32,6 +32,7 @@
     # # "Hello, world!" when run.
     # pkgs.hello
     pkgs.kcalc
+    pkgs.kfind
     # pkgs.dbeaver-bin
     pkgs.starship
     # # It is sometimes useful to fine-tune packages, for example, by applying
