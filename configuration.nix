@@ -37,12 +37,22 @@
   networking.networkmanager.enable = true;
 
   # Bluetooth
- # hardware = {
- #     bluetooth = {
- #         enable = true;
- #         settings.General.Experimental = true;
- #     };
- # };
+  hardware = {
+      bluetooth = {
+         enable = true;
+         powerOnBoot = true;
+         settings.General = {
+           Experimental = true;
+           Name = "Bluetooth dongle";
+           FastConnectable = true;
+           ControllerMode = "dual";
+         };
+         settings.Policy = {
+           AutoEnable = true;
+         };
+#         settings.General.Enable = "Source,Sink,Media,Socket";      
+      };
+  };
 
   services.restic.backups = {
     localbackup = {
@@ -184,6 +194,7 @@
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       kdePackages.kate
+      kdePackages.bluedevil
     #  thunderbird
     ];
   };
@@ -221,6 +232,7 @@
      bloop
      metals
      vscode-extensions.scalameta.metals
+     scala-cli
      #coursier
      maven
      gitFull
@@ -243,7 +255,7 @@
      soapui
      #insomnia
      #vlc
-     #postgresql
+     postgresql
     #  (blender.override { cudaSupport = true; })
      gimp
      inkscape
@@ -264,7 +276,7 @@
      libinput
 #     blender
 #     redisinsight
-      ffmpeg
+     ffmpeg
           gst_all_1.gstreamer
           # Common plugins like "filesrc" to combine within e.g. gst-launch
           gst_all_1.gst-plugins-base
@@ -276,8 +288,11 @@
           gst_all_1.gst-libav
           # Support the Video Audio (Hardware) Acceleration API
           gst_all_1.gst-vaapi
-      nixd
-      lm_sensors
+     nixd
+     lm_sensors
+     busybox
+     xorg.xkill
+     openssl
   ];
 
 #  nixpkgs.config.cudaSupport = true;
