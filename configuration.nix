@@ -25,6 +25,8 @@
       fsType = "ext4";
     };    
 
+  services.journald.extraConfig = "SystemMaxUse=1G";
+
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -35,8 +37,13 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.wireless.iwd.enable = true;
+  networking.networkmanager.wifi.backend = "iwd";  
 
-  # Bluetooth
+  hardware.usb-modeswitch.enable=true;
+  hardware.enableAllFirmware = true;
+  hardware.enableRedistributableFirmware = true;
+# Bluetooth
   hardware = {
       bluetooth = {
          enable = true;
@@ -195,6 +202,7 @@
     packages = with pkgs; [
       kdePackages.kate
       kdePackages.bluedevil
+      kdePackages.filelight
     #  thunderbird
     ];
   };
@@ -218,7 +226,10 @@
 
   nix.optimise.automatic = true;
   nix.optimise.dates = [ "14:00" ]; # Optional; allows customizing optimisation schedule
-
+  nix.gc = {
+    automatic = true;
+    options = "--delete-older-than 10d";
+  };
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -238,6 +249,7 @@
      gitFull
      wget
      curl     
+     jq
      google-chrome
      chromium
      unzip
@@ -293,6 +305,9 @@
      busybox
      xorg.xkill
      openssl
+     usb-modeswitch
+     usb-modeswitch-data
+     libreoffice-qt
   ];
 
 #  nixpkgs.config.cudaSupport = true;
