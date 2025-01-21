@@ -3,14 +3,15 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager/master";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    stylix.url = "github:danth/stylix";
-    # blender-bin.url = "github:edolstra/nix-warez?dir=blender";
+    # home-manager.url = "github:nix-community/home-manager";
+    # home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    # stylix.url = "github:danth/stylix";
+
   };
 
-  # outputs = { self, nixpkgs, home-manager, blender-bin, ... }@inputs: 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: 
+  # outputs = { self, nixpkgs, home-manager, ... }@inputs: 
+  outputs = { self, nixpkgs, ... }@inputs: 
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -22,7 +23,9 @@
           # Import the previous configuration.nix we used,
           # so the old configuration file still takes effect
           ./configuration.nix
-          inputs.stylix.nixosModules.stylix
+
+          # inputs.stylix.nixosModules.stylix
+
           # ({config, pkgs, ...}: {
           #   nixpkgs.overlays = [ blender-bin.overlays.default ];
           #   # This line can either be here or in configuration.nix
@@ -30,12 +33,12 @@
           # })
         ];
       };
-      homeConfigurations = {
-        gasdia73 = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [./home.nix ];
-        };
-      };
+      # homeConfigurations = {
+      #   gasdia73 = home-manager.lib.homeManagerConfiguration {
+      #     inherit pkgs;
+      #     modules = [./home.nix ];
+      #   };
+      # };
     };
 }
 
