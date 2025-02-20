@@ -163,7 +163,7 @@
   # Configure console keymap
   console.keyMap = "it2";
 
-  # Enable CUPS to print documents.
+  #Enable CUPS to print documents.
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.hplipWithPlugin ];
 
@@ -172,6 +172,23 @@
     nssmdns4 = true;
     openFirewall = true;
   };
+
+  #printing: attempt n. 2
+  # services.printing.enable = true;
+  # services.printing.drivers = [ pkgs.gutenprint ];  
+  # services.printing.browsing = true;
+  # services.printing.browsedConf = ''
+  # BrowseDNSSDSubTypes _cups,_print
+  # BrowseLocalProtocols all
+  # BrowseRemoteProtocols all
+  # CreateIPPPrinterQueues All
+  
+  # BrowseProtocols all
+  #     '';
+  # services.avahi = {
+  #   enable = true;
+  #   nssmdns = true;
+  # };  
 
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
@@ -237,7 +254,8 @@
   #  wget
      beep
      #openjdk16-bootstrap     
-     jdk17
+     #jdk17
+     jdk21
      sbt
      scala
      bloop
@@ -266,7 +284,8 @@
      mongodb-compass
      soapui
      #insomnia
-     #vlc
+     vlc
+     libvlc
      postgresql
     #  (blender.override { cudaSupport = true; })
      gimp
@@ -289,17 +308,18 @@
 #     blender
 #     redisinsight
      ffmpeg
-          gst_all_1.gstreamer
-          # Common plugins like "filesrc" to combine within e.g. gst-launch
-          gst_all_1.gst-plugins-base
-          # Specialized plugins separated by quality
-          gst_all_1.gst-plugins-good
-          gst_all_1.gst-plugins-bad
-          gst_all_1.gst-plugins-ugly
-          # Plugins to reuse ffmpeg to play almost every video format
-          gst_all_1.gst-libav
-          # Support the Video Audio (Hardware) Acceleration API
-          gst_all_1.gst-vaapi
+     gst_all_1.gstreamer
+     # Common plugins like "filesrc" to combine within e.g. gst-launch
+     gst_all_1.gst-plugins-base
+     # Specialized plugins separated by quality
+     gst_all_1.gst-plugins-good
+     gst_all_1.gst-plugins-bad
+     gst_all_1.gst-plugins-ugly
+     # Plugins to reuse ffmpeg to play almost every video format
+     gst_all_1.gst-libav
+     # Support the Video Audio (Hardware) Acceleration API
+     gst_all_1.gst-vaapi
+     v4l-utils
      nixd
      lm_sensors
      busybox
@@ -332,6 +352,7 @@
       extraOutputsToInstall = ["dev"];
     }))
 
+    hplipWithPlugin
 
   ];
 
