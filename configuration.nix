@@ -27,6 +27,16 @@
 
   services.journald.extraConfig = "SystemMaxUse=1G";
 
+  networking.extraHosts =
+  ''
+  127.0.0.1   consorziorimini.concilia-xxx.maggioli.cloud
+  127.0.0.1   localhost
+  ::1         localhost
+  127.0.0.2   nixos
+  ::1         nixos
+  '';
+
+
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -329,6 +339,7 @@
      usb-modeswitch-data
      libreoffice-qt
      vdhcoapp
+     llvm_12
      home-manager
 
     # Create an FHS environment using the command `fhs`, enabling the execution of non-NixOS packages in NixOS!
