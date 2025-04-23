@@ -69,6 +69,10 @@
       };
   };
 
+
+  #temporaneamente
+  services.restic.enable = false;
+
   services.restic.backups = {
     localbackup = {
       initialize = true;
@@ -117,6 +121,10 @@
   # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
 
+  #prova startx command line prompt
+  # services.xserver.autorun = false;
+  # services.xserver.displayManager.startx.enable = true;
+
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
@@ -164,7 +172,7 @@
 # 	# accessible via `nvidia-settings`.
   hardware.nvidia.nvidiaSettings = true;
 # # Optionally, you may need to select the appropriate driver version for your specific GPU.
-   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.latest;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.latest;
 
 
 #-----------------------------
@@ -339,7 +347,10 @@
      usb-modeswitch-data
      libreoffice-qt
      vdhcoapp
-     llvm_12
+     llvm
+     clang
+     redisinsight
+     mongodb-compass
      home-manager
 
     # Create an FHS environment using the command `fhs`, enabling the execution of non-NixOS packages in NixOS!
