@@ -69,10 +69,6 @@
       };
   };
 
-
-  #temporaneamente
-  services.restic.enable = false;
-
   services.restic.backups = {
     localbackup = {
       initialize = true;
@@ -261,7 +257,7 @@
   nix.optimise.dates = [ "14:00" ]; # Optional; allows customizing optimisation schedule
   nix.gc = {
     automatic = true;
-    options = "--delete-older-than 10d";
+    options = "--delete-older-than 50d";
   };
   nix.settings.auto-optimise-store = true;  
 
@@ -383,8 +379,7 @@
   services.flatpak.enable = true;
 
   nixpkgs.config.permittedInsecurePackages = [
-    "googleearth-pro-7.3.4.8248"
-    "googleearth-pro-7.3.6.9796"
+    "googleearth-pro-7.3.6.10201"
   ];
 
 
