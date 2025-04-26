@@ -347,6 +347,8 @@
      clang
      redisinsight
      mongodb-compass
+     httpie
+
      home-manager
 
     # Create an FHS environment using the command `fhs`, enabling the execution of non-NixOS packages in NixOS!
