@@ -46,7 +46,7 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   #enable wifi dongle
-  hardware.usbWwan.enable = true;
+  # hardware.usbWwan.enable = true;
 
   hardware.usb-modeswitch.enable=true;
   hardware.enableAllFirmware = true;
@@ -205,7 +205,7 @@
   # };  
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -268,8 +268,10 @@
   #  wget
      beep
      #openjdk16-bootstrap     
-     #jdk17
-     jdk21
+    #  jdk17
+     jdk23
+     javaPackages.openjfx23
+
      sbt
      scala
      bloop
@@ -348,12 +350,14 @@
      redisinsight
      mongodb-compass
      httpie
-
+     kchmviewer
+     remmina
+     ocrfeeder
      home-manager
 
     # Create an FHS environment using the command `fhs`, enabling the execution of non-NixOS packages in NixOS!
     (let base = pkgs.appimageTools.defaultFhsEnvArgs; in
-      pkgs.buildFHSUserEnv (base // {
+      pkgs.buildFHSEnv (base // {
       name = "fhs";
       targetPkgs = pkgs: 
         # pkgs.buildFHSUserEnv provides only a minimal FHS environment,
