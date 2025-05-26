@@ -271,7 +271,7 @@
     #  jdk17
      jdk23
      javaPackages.openjfx23
-
+     ant
      sbt
      scala
      bloop
@@ -353,6 +353,10 @@
      kchmviewer
      remmina
      ocrfeeder
+     cmake
+     cmakeWithGui
+     openfortivpn
+
      home-manager
 
     # Create an FHS environment using the command `fhs`, enabling the execution of non-NixOS packages in NixOS!
