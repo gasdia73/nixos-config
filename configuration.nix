@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./vm.nix      
     ];
 
   # Bootloader.
@@ -356,6 +357,9 @@
      cmake
      cmakeWithGui
      openfortivpn
+     subversion
+     subversionClient
+     #virtualboxWithExtpack - non installarlo -> conflitta con kvm
 
      home-manager
 
