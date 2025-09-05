@@ -15,6 +15,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "ntfs" ];
+  boot.kernelModules = ["btusb"];
 
   fileSystems."/mnt/backup" =
     { device = "/dev/disk/by-uuid/907294bd-7e64-424a-b335-41b5e58df1db";
@@ -30,7 +31,6 @@
 
   networking.extraHosts =
   ''
-  127.0.0.1   consorziorimini.concilia-xxx.maggioli.cloud
   127.0.0.1   localhost
   ::1         localhost
   127.0.0.2   nixos
@@ -51,24 +51,26 @@
 
   hardware.usb-modeswitch.enable=true;
   hardware.enableAllFirmware = true;
-  hardware.enableRedistributableFirmware = true;
 # Bluetooth
-  hardware = {
-      bluetooth = {
-         enable = true;
-         powerOnBoot = true;
-         settings.General = {
-           Experimental = true;
-           Name = "Bluetooth dongle";
-           FastConnectable = true;
-           ControllerMode = "dual";
-         };
-         settings.Policy = {
-           AutoEnable = true;
-         };
-#         settings.General.Enable = "Source,Sink,Media,Socket";      
-      };
-  };
+  hardware.bluetooth.enable = true;
+
+
+#   hardware = {
+#       bluetooth = {
+#          enable = true;
+#          powerOnBoot = true;
+#          settings.General = {
+#            Experimental = true;
+#            Name = "Bluetooth dongle";
+#            FastConnectable = true;
+#            ControllerMode = "dual";
+#          };
+#          settings.Policy = {
+#            AutoEnable = true;
+#          };
+# #         settings.General.Enable = "Source,Sink,Media,Socket";      
+#       };
+#   };
 
   services.restic.backups = {
     localbackup = {
@@ -295,7 +297,7 @@
      google-cloud-sdk
      (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.cloud-sql-proxy])
      pgadmin4
-     nodejs_22
+     nodePackages_latest.nodejs
      gparted
      mlocate
      mongodb-compass
@@ -360,6 +362,8 @@
      subversion
      subversionClient
      #virtualboxWithExtpack - non installarlo -> conflitta con kvm
+     dnsmasq
+     qtscrcpy
 
      home-manager
 
@@ -404,6 +408,11 @@
       enable = true;
       setSocketVariable = true;
     };
+  };
+
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu.vhostUserPackages = with pkgs; [ virtiofsd ];
   };
 
   services.postgresql = {
