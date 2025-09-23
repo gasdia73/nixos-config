@@ -16,6 +16,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "ntfs" ];
   boot.kernelModules = ["btusb"];
+  boot.kernelParams = [ "btusb.enable_autosuspend=0" ];
 
   fileSystems."/mnt/backup" =
     { device = "/dev/disk/by-uuid/907294bd-7e64-424a-b335-41b5e58df1db";
@@ -256,6 +257,8 @@
   # Enable the Flakes feature and the accompanying new nix command-line tool
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  nix.settings.max-jobs = 2;
+
   nix.optimise.automatic = true;
   nix.optimise.dates = [ "14:00" ]; # Optional; allows customizing optimisation schedule
   nix.gc = {
@@ -353,7 +356,6 @@
      redisinsight
      mongodb-compass
      httpie
-     kchmviewer
      remmina
      ocrfeeder
      cmake
@@ -364,6 +366,8 @@
      #virtualboxWithExtpack - non installarlo -> conflitta con kvm
      dnsmasq
      qtscrcpy
+     vdhcoapp #don't forget to reinstall after every upgrade
+     protobuf_29
 
      home-manager
 
