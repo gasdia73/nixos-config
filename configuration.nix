@@ -36,6 +36,7 @@
   ::1         localhost
   127.0.0.2   nixos
   ::1         nixos
+  192.168.201.200            gitlab.dev.circletouch.eu
   '';
 
 
@@ -368,7 +369,11 @@
      qtscrcpy
      vdhcoapp #don't forget to reinstall after every upgrade
      protobuf_29
-
+     slack
+     #globalprotect-openconnect
+     networkmanager-openconnect
+     xclip
+     
      home-manager
 
     # Create an FHS environment using the command `fhs`, enabling the execution of non-NixOS packages in NixOS!
@@ -402,16 +407,24 @@
 
   nixpkgs.config.permittedInsecurePackages = [
     "googleearth-pro-7.3.6.10201"
+    #"qtwebengine-5.15.19"
   ];
-
 
   virtualisation.docker = {
     enable = true;
     enableOnBoot = true;
-    rootless = {
-      enable = true;
-      setSocketVariable = true;
-    };
+
+    #trying to make swarm work
+    liveRestore = false;
+    
+    # docker rootless prevents swarm from working 
+    # https://forums.docker.com/t/running-docker-swarm-in-rootless-mode/136492
+
+    # rootless = {
+    #   enable = true;
+    #   setSocketVariable = true;
+    # };
+
   };
 
   virtualisation.libvirtd = {
@@ -453,8 +466,14 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-  networking.wireless.iwd.enable = true;
   networking.networkmanager.wifi.backend = "iwd";  
+  networking.networkmanager.plugins = with pkgs; [
+    # Explicitly list all needed plugins, including openconnect
+    networkmanager-openconnect
+    # Add other plugins you might need, e.g., "openvpn", "l2tp"
+  ];
+
+  networking.wireless.iwd.enable = true;
   networking.firewall = { 
     enable = true;
     allowedTCPPortRanges = [ 
