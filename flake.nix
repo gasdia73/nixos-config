@@ -18,6 +18,22 @@
     in {  
       # Please replace my-nixos with your hostname
       nixosConfigurations = {
+        lenovo1 = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [
+            # Import the previous configuration.nix we used,
+            # so the old configuration file still takes effect
+            ./lenovo1.nix
+
+            # inputs.stylix.nixosModules.stylix
+
+            # ({config, pkgs, ...}: {
+            #   nixpkgs.overlays = [ blender-bin.overlays.default ];
+            #   # This line can either be here or in configuration.nix
+            #   environment.systemPackages = with pkgs; [ blender_4_0 ];
+            # })
+          ];
+        };
         desktopcasa = nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
