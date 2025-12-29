@@ -14,31 +14,33 @@
   outputs = { self, nixpkgs, ... }@inputs: 
     let
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      # pkgs = nixpkgs.legacyPackages.${system};
     in {  
       # Please replace my-nixos with your hostname
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules = [
-          # Import the previous configuration.nix we used,
-          # so the old configuration file still takes effect
-          ./configuration.nix     
+      nixosConfigurations = {
+        desktopcasa = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [
+            # Import the previous configuration.nix we used,
+            # so the old configuration file still takes effect
+            ./desktopcasa.nix     
 
-          # inputs.stylix.nixosModules.stylix
+            # inputs.stylix.nixosModules.stylix
 
-          # ({config, pkgs, ...}: {
-          #   nixpkgs.overlays = [ blender-bin.overlays.default ];
-          #   # This line can either be here or in configuration.nix
-          #   environment.systemPackages = with pkgs; [ blender_4_0 ];
-          # })
-        ];
+            # ({config, pkgs, ...}: {
+            #   nixpkgs.overlays = [ blender-bin.overlays.default ];
+            #   # This line can either be here or in configuration.nix
+            #   environment.systemPackages = with pkgs; [ blender_4_0 ];
+            # })
+          ];
+        };
+        # homeConfigurations = {
+        #   gasdia73 = home-manager.lib.homeManagerConfiguration {
+        #     inherit pkgs;
+        #     modules = [./home.nix ];
+        #   };
+        # };
       };
-      # homeConfigurations = {
-      #   gasdia73 = home-manager.lib.homeManagerConfiguration {
-      #     inherit pkgs;
-      #     modules = [./home.nix ];
-      #   };
-      # };
     };
 }
 

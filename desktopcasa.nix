@@ -6,11 +6,30 @@
 {
   imports =
     [ (modulesPath + "/installer/scan/not-detected.nix")
+      ./configuration.nix
     ];
 
+  services.journald.extraConfig = "SystemMaxUse=1G";
+
+  networking.extraHosts =
+  ''
+  127.0.0.1   localhost
+  ::1         localhost
+  127.0.0.2   desktopcasa
+  ::1         desktopcasa
+  192.168.201.200            gitlab.dev.circletouch.eu
+  '';
+
+  networking.hostName = "desktopcasa"; # Define your hostname.  
+
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.supportedFilesystems = [ "ntfs" ];
+  boot.kernelModules = ["btusb" "kvm-intel"];
+  boot.kernelParams = [ "btusb.enable_autosuspend=0" ];
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
@@ -24,6 +43,16 @@
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
+
+  fileSystems."/mnt/backup" =
+    { device = "/dev/disk/by-uuid/907294bd-7e64-424a-b335-41b5e58df1db";
+      fsType = "ext4";
+    };
+
+  fileSystems."/mnt/extrastorage" =
+    { device = "/dev/disk/by-uuid/bd4121cc-e6d5-4b80-bcda-743c6e7399df";
+      fsType = "ext4";
+    };       
 
 
   swapDevices = [ ];

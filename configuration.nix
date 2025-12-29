@@ -7,41 +7,9 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
       ./vm.nix      
     ];
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.supportedFilesystems = [ "ntfs" ];
-  boot.kernelModules = ["btusb"];
-  boot.kernelParams = [ "btusb.enable_autosuspend=0" ];
-
-  fileSystems."/mnt/backup" =
-    { device = "/dev/disk/by-uuid/907294bd-7e64-424a-b335-41b5e58df1db";
-      fsType = "ext4";
-    };
-
-  fileSystems."/mnt/extrastorage" =
-    { device = "/dev/disk/by-uuid/bd4121cc-e6d5-4b80-bcda-743c6e7399df";
-      fsType = "ext4";
-    };    
-
-  services.journald.extraConfig = "SystemMaxUse=1G";
-
-  networking.extraHosts =
-  ''
-  127.0.0.1   localhost
-  ::1         localhost
-  127.0.0.2   nixos
-  ::1         nixos
-  192.168.201.200            gitlab.dev.circletouch.eu
-  '';
-
-
-
-  networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
