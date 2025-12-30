@@ -291,6 +291,7 @@
      #globalprotect-openconnect
      networkmanager-openconnect
      xclip
+     python3
      
      home-manager
 
