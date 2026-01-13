@@ -194,8 +194,8 @@
      beep
      #openjdk16-bootstrap     
     #  jdk17
-     jdk23
-     javaPackages.openjfx23
+     jdk25
+     javaPackages.openjfx25
      ant
      sbt
      scala
@@ -213,7 +213,7 @@
      chromium
      unzip
      vscode
-     jetbrains.idea-community
+     jetbrains.idea-oss
      obs-studio
      inetutils
      google-cloud-sdk
