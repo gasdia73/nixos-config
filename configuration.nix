@@ -290,6 +290,7 @@
      slack
      #globalprotect-openconnect
      networkmanager-openconnect
+     openconnect
      xclip
      python3
      
