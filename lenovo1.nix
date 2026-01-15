@@ -16,6 +16,15 @@
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+    networking.extraHosts =
+  ''
+  127.0.0.1   localhost
+  ::1         localhost
+  127.0.0.2   lenovo1
+  ::1         lenovo1
+  192.168.201.200            gitlab.dev.circletouch.eu
+  '';
+
   networking.hostName = "lenovo1"; # Define your hostname.
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];

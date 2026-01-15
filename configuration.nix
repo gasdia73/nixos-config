@@ -293,6 +293,7 @@
      openconnect
      xclip
      python3
+     dbeaver-bin
      
      home-manager
 
