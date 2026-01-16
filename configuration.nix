@@ -294,6 +294,7 @@
      xclip
      python3
      dbeaver-bin
+     haruna
      
      home-manager
 
