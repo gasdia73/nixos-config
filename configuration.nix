@@ -155,6 +155,7 @@
       kdePackages.kate
       kdePackages.bluedevil
       kdePackages.filelight
+      kdePackages.kompare
     #  thunderbird
     ];
   };
@@ -194,6 +195,8 @@
      beep
      #openjdk16-bootstrap     
     #  jdk17
+     jdk8
+     jdk21    
      jdk25
      javaPackages.openjfx25
      ant
@@ -293,6 +296,7 @@
      openconnect
      xclip
      python3
+     meld
      dbeaver-bin
      haruna
      
