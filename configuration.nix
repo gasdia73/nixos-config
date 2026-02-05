@@ -272,7 +272,6 @@
      usb-modeswitch
      usb-modeswitch-data
      libreoffice-qt
-     vdhcoapp
      llvm
      clang
      redisinsight
@@ -288,7 +287,7 @@
      #virtualboxWithExtpack - non installarlo -> conflitta con kvm
      dnsmasq
      qtscrcpy
-     vdhcoapp #don't forget to reinstall after every upgrade
+    #  vdhcoapp #don't forget to reinstall after every upgrade
      protobuf_29
      slack
      #globalprotect-openconnect
