@@ -171,6 +171,11 @@
     openFirewall = true;
   };
 
+  services.mongodb = {
+    enable = true;
+    package = pkgs.mongodb-ce; # Ensures version 8+
+  };
+
   # Install firefox.
   programs.firefox.enable = true;
 
@@ -225,7 +230,6 @@
      nodePackages_latest.nodejs
      gparted
      mlocate
-     mongodb-compass
      soapui
      #insomnia
      vlc
@@ -298,6 +302,7 @@
      meld
      dbeaver-bin
      haruna
+     zip
      
      home-manager
 
