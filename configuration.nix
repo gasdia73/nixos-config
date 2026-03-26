@@ -271,7 +271,7 @@
      nixd
      lm_sensors
      busybox
-     xorg.xkill
+     xkill
      openssl
      usb-modeswitch
      usb-modeswitch-data
