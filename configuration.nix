@@ -231,7 +231,7 @@
      gparted
      mlocate
      soapui
-     #insomnia
+     insomnia
      vlc
      libvlc
      postgresql

@@ -11,25 +11,36 @@
       url = "github:jacopone/antigravity-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    llm-agents.url = "github:numtide/llm-agents.nix";
 
   };
 
   # outputs = { self, nixpkgs, home-manager, ... }@inputs: 
-  outputs = { self, nixpkgs, antigravity-nix, ... }@inputs: 
+  outputs = { self, nixpkgs, antigravity-nix, llm-agents, ... }@inputs:
     let
       system = "x86_64-linux";
       # pkgs = nixpkgs.legacyPackages.${system};
+      commonModules = [
+        {
+          environment.systemPackages = [
+            antigravity-nix.packages.x86_64-linux.default
+          ];
+        }
+        ({ pkgs, ... }: {
+          nixpkgs.overlays = [ llm-agents.overlays.default ];
+          environment.systemPackages = [
+            pkgs.claude-code
+            pkgs.codex
+            pkgs.gemini-cli
+          ];
+        })
+      ];
     in {  
       # Please replace my-nixos with your hostname
       nixosConfigurations = {
         lenovo1 = nixpkgs.lib.nixosSystem {
           inherit system;
-          modules = [
-            {
-          environment.systemPackages = [
-            antigravity-nix.packages.x86_64-linux.default
-          ];
-        }
+          modules = commonModules ++ [
             # Import the previous configuration.nix we used,
             # so the old configuration file still takes effect
             ./lenovo1.nix
@@ -45,12 +56,7 @@
         };
         desktopcasa = nixpkgs.lib.nixosSystem {
           inherit system;
-          modules = [
-            {
-          environment.systemPackages = [
-            antigravity-nix.packages.x86_64-linux.default
-          ];
-        }
+          modules = commonModules ++ [
             # Import the previous configuration.nix we used,
             # so the old configuration file still takes effect
             ./desktopcasa.nix     
