@@ -22,7 +22,7 @@
   };
 
   # outputs = { self, nixpkgs, home-manager, ... }@inputs: 
-  outputs = { self, nixpkgs, nixpkgs-master, antigravity-nix, llm-agents, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-master, jetbrains-flake, antigravity-nix, llm-agents, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs-master = import nixpkgs-master {
