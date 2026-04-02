@@ -67,7 +67,7 @@
         desktopcasa = nixpkgs.lib.nixosSystem {
           inherit system;
           # This part is key: it lets you use 'pkgs-master' inside your modules
-          specialArgs = { inherit inputs pkgs-master pkgs-jetbrains; };
+          specialArgs = { inherit inputs pkgs-master; };
           modules = commonModules ++ [
             # Import the previous configuration.nix we used,
             # so the old configuration file still takes effect
