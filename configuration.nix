@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, pkgs-master, pkgs-jetbrains, ... }:
+{ config, pkgs, pkgs-master, ... }:
 
 {
   imports =
@@ -224,7 +224,7 @@
      chromium
      unzip
      #jetbrains.idea-oss
-     pgks-jetbrains.idea-community
+     pkgs-master.jetbrains.idea-ultimate
      obs-studio
      inetutils
      google-cloud-sdk
