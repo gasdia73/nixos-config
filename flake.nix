@@ -37,7 +37,7 @@
         ({ pkgs, ... }: {
           nixpkgs.overlays = [ llm-agents.overlays.default ];
           environment.systemPackages = [
-            pkgs.claude-code
+#             pkgs.claude-code
             pkgs.codex
             pkgs.gemini-cli
           ];
