@@ -224,7 +224,7 @@
      chromium
      unzip
      #jetbrains.idea-oss
-     pkgs-master.jetbrains.idea-ultimate
+     pkgs-master.jetbrains.idea
      obs-studio
      inetutils
      google-cloud-sdk
