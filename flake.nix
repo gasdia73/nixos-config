@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    # The bleeding-edge source
+    nixpkgs-master.url = "github:nixos/nixpkgs/master";
+
     # home-manager.url = "github:nix-community/home-manager";
     # home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -16,9 +20,13 @@
   };
 
   # outputs = { self, nixpkgs, home-manager, ... }@inputs: 
-  outputs = { self, nixpkgs, antigravity-nix, llm-agents, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-master, antigravity-nix, llm-agents, ... }@inputs:
     let
       system = "x86_64-linux";
+      pkgs-master = import nixpkgs-master {
+        inherit system;
+        config.allowUnfree = true;
+      };
       # pkgs = nixpkgs.legacyPackages.${system};
       commonModules = [
         {
@@ -56,6 +64,8 @@
         };
         desktopcasa = nixpkgs.lib.nixosSystem {
           inherit system;
+          # This part is key: it lets you use 'pkgs-master' inside your modules
+          specialArgs = { inherit inputs pkgs-master; };
           modules = commonModules ++ [
             # Import the previous configuration.nix we used,
             # so the old configuration file still takes effect

@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-master, ... }:
 
 {
   imports =
@@ -204,12 +204,15 @@
      jdk21    
      jdk25
      javaPackages.openjfx25
+     graalvmPackages.graalvm-ce
+
      ant
      sbt
      scala
      bloop
      metals
-     vscode-extensions.scalameta.metals
+     pkgs-master.vscode-extensions.scalameta.metals
+     pkgs-master.vscode-fhs
      scala-cli
      #coursier
      maven
@@ -220,14 +223,14 @@
      google-chrome
      chromium
      unzip
-     vscode
      jetbrains.idea-oss
      obs-studio
      inetutils
      google-cloud-sdk
      (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.cloud-sql-proxy])
      pgadmin4
-     nodePackages_latest.nodejs
+     nodejs
+     aws-cdk-cli
      gparted
      mlocate
      soapui
@@ -303,6 +306,11 @@
      dbeaver-bin
      haruna
      zip
+     awscli2
+     zlib
+     glibc
+     gcc
+     repomix
      
      home-manager
 
