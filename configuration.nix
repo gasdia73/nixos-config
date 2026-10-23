@@ -27,6 +27,8 @@
 # Bluetooth
   hardware.bluetooth.enable = true;
 
+  hardware.facetimehd.enable = pkgs.lib.mkForce false;
+
 
 #   hardware = {
 #       bluetooth = {
@@ -85,8 +87,8 @@
     xkb.variant = "";
   };
 
-  hardware.logitech.wireless.enable = true;
-  hardware.logitech.wireless.enableGraphical = true;
+  # hardware.logitech.wireless.enable = true;
+  # hardware.logitech.wireless.enableGraphical = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -184,6 +186,12 @@
 
   nix.settings.max-jobs = 2;
 
+  nix.settings = {
+    connect-timeout = 60;        # Timeout di connessione in secondi
+    stalled-download-timeout = 90; # Tempo di attesa se lo scaricamento si blocca
+    download-attempts = 5;       # Numero di tentativi automatici prima di fallire
+  };
+
   nix.optimise.automatic = true;
   nix.optimise.dates = [ "14:00" ]; # Optional; allows customizing optimisation schedule
   nix.gc = {
@@ -245,7 +253,7 @@
      rsync
      guvcview
      ntfs3g
-     googleearth-pro
+     #googleearth-pro
      logiops
      lsof
      usbutils
@@ -270,7 +278,7 @@
      # Plugins to reuse ffmpeg to play almost every video format
      gst_all_1.gst-libav
      # Support the Video Audio (Hardware) Acceleration API
-     gst_all_1.gst-vaapi
+     #gst_all_1.gst-vaapi
      v4l-utils
      nixd
      lm_sensors
@@ -282,7 +290,7 @@
      libreoffice-qt
      llvm
      clang
-     redisinsight
+     #redisinsight
      mongodb-compass
      httpie
      remmina
@@ -312,6 +320,7 @@
      glibc
      gcc
      repomix
+     blender
      
      home-manager
 
@@ -345,7 +354,7 @@
   services.flatpak.enable = true;
 
   nixpkgs.config.permittedInsecurePackages = [
-    "googleearth-pro-7.3.6.10201"
+    #"googleearth-pro"
     #"qtwebengine-5.15.19"
   ];
 

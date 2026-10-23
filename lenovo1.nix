@@ -10,8 +10,22 @@
  ];
 
  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
+  # boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  boot.loader.grub = {
+    enable = true;
+    device = "nodev";
+    efiSupport = true;
+
+    # Forza la risoluzione (es. 3840x2160 o 3440x1440)
+    gfxmodeEfi = "3840x2160,auto"; # Sostituisci con la risoluzione esatta del tuo schermo
+    gfxpayloadEfi = "keep";
+
+    # Passa un font TTF/OTF da nixpkgs e la dimensione desiderata
+    font = "${pkgs.dejavu_fonts}/share/fonts/truetype/DejaVuSansMono.ttf";
+    fontSize = 36; # Scegli tra 32 e 48 per il 4K
+  };
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -27,10 +41,30 @@
 
   networking.hostName = "lenovo1"; # Define your hostname.
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "uhci_hcd" "ehci_hcd"];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelParams = [
+    # Disable USB autosuspend globally
+    "usbcore.autosuspend=-1"
+    # Disable SuperSpeed Link Power Management (LPM)
+    "usbcore.old_scheme_first=1"
+    "xhci_hcd.quirks=270336"
+  ];
   boot.extraModulePackages = [ ];
+
+  services.udev.extraRules = ''
+    # Prevent runtime power management on the BENFEI USB hub
+    ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="05e3", ATTR{power/control}="on"
+    ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="0bda", ATTR{power/control}="on"
+    ACTION=="add", SUBSYSTEM=="usb", ATTR{bDeviceClass}=="09", ATTR{power/control}="on"
+    # Risolve il conflitto del Logitech G903 con il trackpad sotto Wayland
+    # Rimuove le funzionalità "tastiera" fittizie lasciando solo il puntatore mouse
+    ACTION=="add|change", SUBSYSTEM=="input", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="4087", ENV{ID_INPUT_KEYBOARD}=""
+  '';
+  services.tlp.settings = {
+    USB_AUTOSUSPEND = 0;
+  };
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/8ee99eae-d001-44da-aff1-4383dbe67c2c";
