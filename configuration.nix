@@ -321,6 +321,7 @@
      gcc
      repomix
      blender
+     opencode
      
      home-manager
 
