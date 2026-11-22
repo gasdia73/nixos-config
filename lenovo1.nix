@@ -38,7 +38,7 @@
   boot.kernelModules = [ "kvm-intel" ];
 
   # --- MERGED KERNEL PARAMETERS ---
-  boot.kernelParams = [
+  boot.kernelParams = lib.mkForce [
     "usbcore.autosuspend=-1"
     "usbcore.old_scheme_first=1"
     "xhci_hcd.quirks=270336"

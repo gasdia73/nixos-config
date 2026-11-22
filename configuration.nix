@@ -322,7 +322,8 @@
      repomix
      blender
      opencode
-     
+     android-studio
+     android-tools # provides adb and fastboot
      home-manager
 
     # Create an FHS environment using the command `fhs`, enabling the execution of non-NixOS packages in NixOS!
