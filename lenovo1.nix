@@ -16,6 +16,9 @@
     efiSupport = true;
     gfxmodeEfi = "3840x2160,auto";
     gfxpayloadEfi = "keep";
+    # Keep only the current + 2 previous generations in /boot. The EFI
+    # partition is shared with Windows and only 511 MiB.
+    configurationLimit = 3;
     font = "${pkgs.dejavu_fonts}/share/fonts/truetype/DejaVuSansMono.ttf";
     fontSize = 36;
   };
@@ -35,7 +38,7 @@
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "uhci_hcd" "ehci_hcd" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelModules = [ "kvm-intel" "snd_soc_skl_hda_dsp" ];
 
   # --- MERGED KERNEL PARAMETERS ---
   boot.kernelParams = lib.mkForce [
@@ -49,7 +52,6 @@
   # Blacklist legacy Intel drivers to prevent driver clashes
   boot.blacklistedKernelModules = [
     "snd_soc_skl"
-    "snd_soc_skl_hda_dsp"
     "snd_soc_sst_ipc"
     "snd_soc_sst_dsp"
   ];
